@@ -1,5 +1,9 @@
 # Human-Like-Typing-Simulator
 This project provides a solution for students and educators in environments where typing authenticity is scrutinized.
+<img src="icon.png" alt="icon" width="200" align="center"/>
+
+## Demo
+![](./demo_GIF.gif)
 
 ## Motivation
 This project provides a solution for students and educators in environments where typing authenticity is scrutinized using tools like Google Docs, which allow viewing of editing history. Many educational systems check if a student has manually typed an assignment or simply pasted it from another source. Our Human-Like Typing Simulator is designed to mimic human typing behavior, complete with realistic typing speeds, error rates, and optional bathroom breaks, thus passing through such filters and proving the authenticity of manual typing.
