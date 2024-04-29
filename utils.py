@@ -3,8 +3,8 @@ import random
 import time
 
 
-is_bold_pressed = False
-is_italic_pressed = False
+italic = False
+bold = False
 
 
 def type_like_human(text, speed=0.2, variable_speed=True, error_rate=0.03, take_breaks=True, stop_event=None):
@@ -27,35 +27,35 @@ def type_like_human(text, speed=0.2, variable_speed=True, error_rate=0.03, take_
         return character
 
     def handle_special_formatting(text):
+        global bold, italic
         i = 0
         while i < len(text):
-            char = text[i]
-            if char == "*" or char == "**":
-                # Determine if it's bold or italic based on the next character
-                if i + 1 < len(text) and text[i + 1] == char:
-                    # It's bold or italic with two asterisks
-                    ctrl_key = "ctrl+i" if char == '*' else "ctrl+b"
-                    end_marker = char * 2
-                    i += 2
-                else:
-                    # It's bold or italic with one asterisk
-                    ctrl_key = "ctrl+b" if char == '*' else "ctrl+i"
-                    end_marker = char
-                    i += 1
-
-                time.sleep(random.uniform(max(speed - variance, 0.01), speed + variance))
-                keyboard.send(ctrl_key)  # Start formatting
-
-                # Type until we find the closing marker
-                while i < len(text) and text[i:i + len(end_marker)] != end_marker:
-                    keyboard.write(maybe_make_typo(text[i]))
+            if text[i] == "*" and (i + 1 < len(text) and text[i + 1] == "*"):
+                # Toggle italic if it's a double asterisk "**"
+                if italic:
                     time.sleep(random.uniform(max(speed - variance, 0.01), speed + variance))
-                    i += 1
-
-                keyboard.send(ctrl_key)  # End formatting
-                i += len(end_marker)  # Skip the end marker
+                    keyboard.send("ctrl+i")  # End italic
+                    italic = False
+                    i += 2  # Skip the closing "**"
+                else:
+                    italic = True
+                    time.sleep(random.uniform(max(speed - variance, 0.01), speed + variance))
+                    keyboard.send("ctrl+i")  # Start italic
+                    i += 2  # Skip the opening "**"
+            elif text[i] == "*":
+                # Toggle bold if it's a single asterisk "*"
+                if bold:
+                    time.sleep(random.uniform(max(speed - variance, 0.01), speed + variance))
+                    keyboard.send("ctrl+b")  # End bold
+                    bold = False
+                    i += 1  # Skip the closing "*"
+                else:
+                    bold = True
+                    time.sleep(random.uniform(max(speed - variance, 0.01), speed + variance))
+                    keyboard.send("ctrl+b")  # Start bold
+                    i += 1  # Skip the opening "*"
             else:
-                keyboard.write(maybe_make_typo(char))
+                keyboard.write(maybe_make_typo(text[i]))
                 time.sleep(random.uniform(max(speed - variance, 0.01), speed + variance))
                 i += 1
 
