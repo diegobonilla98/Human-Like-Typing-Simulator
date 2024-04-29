@@ -20,8 +20,8 @@ The Human-Like Typing Simulator is a desktop application built with Python and T
 
 ## Dependecies
 - Python 3.x
-- Tkinter: ´´´pip intall tk´´´
-- Keyboard: ´´´pip intall keyboard´´´
+- Tkinter: `pip intall tk`
+- Keyboard: `pip intall keyboard`
 
 
 ## Usage Instructions
